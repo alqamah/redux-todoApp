@@ -42,7 +42,7 @@ function todoReducer(state=initialState, action){ //setting default value of sta
     case TOGGLE_TODO:
       return {
         ...state,
-        todos: todos.map((t,i)=>{ //multiline function requiring a return statement
+        todos: state.todos.map((t,i)=>{ //multiline function requiring a return statement
           if(i == action.index) //returns updated todo, which is added to spreaded prev state
             t.completed = !t.completed
           return t;
@@ -54,4 +54,19 @@ function todoReducer(state=initialState, action){ //setting default value of sta
 }
 
 //CREATING THE STORE
-redux.createStore(todoReducer);
+const store = redux.createStore(todoReducer); //returns store
+
+
+//______________________________creating dummy-component______________________________//
+//reading data from store
+console.log("1.",store.getState());
+
+//dispatching the actions
+store.dispatch(addTodo("task 1"));
+store.dispatch(addTodo("task 2"));
+store.dispatch(addTodo("task 3"));
+store.dispatch(toggleTodo(1));
+
+//reading data from store
+console.log("2.",store.getState());
+
