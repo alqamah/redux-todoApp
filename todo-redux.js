@@ -43,7 +43,7 @@ function todoReducer(state=initialState, action){ //setting default value of sta
       return {
         ...state,
         todos: todos.map((t,i)=>{ //multiline function requiring a return statement
-          if(i == action.index) //returns updated todo, which is added to spreaded state
+          if(i == action.index) //returns updated todo, which is added to spreaded prev state
             t.completed = !t.completed
           return t;
         })
@@ -52,3 +52,6 @@ function todoReducer(state=initialState, action){ //setting default value of sta
       return state;
   }
 }
+
+//CREATING THE STORE
+redux.createStore(todoReducer);
