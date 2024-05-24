@@ -21,7 +21,7 @@ const toggleTodo = (index) => (
 
 //INITIAL STATE
 const initialState = {
-  todo : []
+  todos : []
 }
 
 //REDUCERS
@@ -29,7 +29,25 @@ function todoReducer(state=initialState, action){ //setting default value of sta
   //Reducers are pure functions that take the current state and an action object as arguments and retum a new state.
   switch (action.type){
     case ADD_TODO:
+      return {
+        ...state, //spread the prev states
+        todos:[
+          ...state.todos, //spread the prev todos[]
+          {
+            text: action.text, //add new todo, text is coming from action-creator passed to parameter of this fn.
+            completed: false
+          }
+        ]
+      }
     case TOGGLE_TODO:
+      return {
+        ...state,
+        todos: todos.map((t,i)=>{ //multiline function requiring a return statement
+          if(i == action.index) //returns updated todo, which is added to spreaded state
+            t.completed = !t.completed
+          return t;
+        })
+      }
     default:
       return state;
   }
